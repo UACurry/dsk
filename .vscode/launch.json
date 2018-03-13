@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\debug\\${fileBasenameNoExtension}.exe",
@@ -17,7 +17,7 @@
             "MIMode": "gdb",
             "targetArchitecture": "x86", 
             "miDebuggerPath": "gdb.exe",
-            "preLaunchTask": "build",
+            "preLaunchTask": "debug",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

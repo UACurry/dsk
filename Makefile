@@ -1,17 +1,21 @@
-g=gcc -Wall -g
+export DEBUG
 
-param=-lpthread -lmysqlclient
+g=gcc -Wall
+ifeq ($(DEBUG), TRUE) 
+	g+= -g
+endif
+
+build:
+	$(g) "$(FILE)" -o debug/$(NAME)
+
+rebuild:clean build
 
 test:test.o
-	$(g) test.o -o debug/test
+	$(g) debug/test.o -o debug/test
 
 test.o:
 	$(g) -c test.c
 
 clean:
-	@rm *.o main *.h.gch *.exe
+	@rm debug/$(NAME).o $(NAME) $(NAME).h.gch $(NAME).exe
 
-run:clean all
-	./main
-
-	

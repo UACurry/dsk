@@ -4,16 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "debug",
             "type": "shell",
             "command": "mingw32-make",
             "args": [
-                "${fileBasenameNoExtension}",
+                "build",
+                "DEBUG=TRUE",
+                "NAME=${fileBasenameNoExtension}",
+                "FILE=\"${file}\""
             ],
             "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
             "problemMatcher": {
                 "owner": "cpp",
                 "fileLocation": [
