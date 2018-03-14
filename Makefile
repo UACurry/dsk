@@ -17,5 +17,4 @@ test.o:
 	$(g) -c test.c
 
 clean:
-	@rm debug/$(NAME).o $(NAME) $(NAME).h.gch $(NAME).exe
-
+	@rm debug/$(NAME).o debug/$(NAME) debug/$(NAME).h.gch debug/$(NAME).exe

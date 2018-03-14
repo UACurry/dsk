@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
+
+/**
+ * 单向链表头文件
+ */
+
 /**
  * 单向链表 增,删,查,改
  */
@@ -27,7 +32,7 @@ prt_node insert(int n, int data, prt_node h)
     prt_node tmp_node;
     prt_node last_node = n == -1 ? after_node(h) : find_node(n, h); //取得前一个节点
     tmp_node = last_node->next;
-    last_node->next = malloc(sizeof(struct node));
+    last_node->next = (prt_node)malloc(sizeof(struct node));
     last_node->next->next = tmp_node;
     last_node->next->data = data;
     tmp_node = last_node->next;
@@ -86,24 +91,4 @@ void print_list(prt_node h)
         printf("%d\t", h->data);
     }
     printf("\n");
-}
-
-int main()
-{
-    prt_node header = memset(malloc(sizeof(struct node)), 0, sizeof(struct node));
-    //添加
-    insert(-1, 153, header);
-    insert(-1, 2343, header);
-    insert(-1, 323, header);
-    insert(-1, 564, header);
-    //删除
-    del(2, header);
-    //插入
-    insert(2, 23333, header);
-    insert(4, 312, header);
-    //修改
-    modify(0, 888, header);
-    print_list(header);
-    getchar();
-    return 0;
 }
