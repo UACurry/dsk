@@ -1,99 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
 #include <math.h>
 #include "../struct/u_link_list.h"
 /**
  * 基数排序
  */
-#define getN(number, N) (number / (int)pow(10, N - 1)) % 10
+#define getN(number, N) (int)((float)(number / pow(10, N - 1))) % 10
 #define NODE_SIZE sizeof(struct node)
-void radix_sort(int *, int);
-/**
- * 初始化桶
- */
-void init_buck(prt_node *buck)
-{
-    for (int i = 0; i < 10; i++) //初始化桶
-    {
-        buck[i] = malloc(NODE_SIZE);
-        memset(buck[i], 0, NODE_SIZE);
-    }
-}
-/**
- * 释放桶
- */
-void free_buck(prt_node *buck)
-{
-    for (int i = 0; i < 10; i++)
-    {
-        prt_node node = buck[i];
-        while (1)
-        {
-            prt_node tmp = node;
-            if (tmp == NULL)
-            {
-                break;
-            }
-            node = node->next;
-            free(tmp);
-        }
-    }
-}
 
-void radix_sort(int *number, int len)
+/**
+ * 基数排序,LDS
+ * 参考地址:http://blog.csdn.net/lemon_tree12138/article/details/51695211
+ */
+void radix_sort_lds(int *number, int len)
 {
-    // int number[len] = {110, 30, 5, 46, 8, 456, 231, 5648, 99797, 156}; //随机数列表
-    prt_node buck[10] = {NULL};
-    init_buck(buck); //初始化桶
-    prt_node tmp_buck[10] = {NULL};
-    //先按照第一位入桶
-    for (int i = 0; i < len; i++)
+    int *buck = malloc(sizeof(int) * len); //桶子
+    int buck_sub[10] = {0};                //每一个桶的结束下标
+    int now_bit = 0, max_bit = 0;          //现在的位数,最大的位数
+    for (int i = 0; i < len; i++)          //获取最大的数字
     {
-        int bit = getN(number[i], 1);     //取出个位
-        insert(-1, number[i], buck[bit]); //放到第bit个桶
+        if (number[i] > max_bit)
+        {
+            max_bit = number[i];
+        }
     }
-    int n = 2;
-    while (1) //在桶内排序
+    int tmp = max_bit;
+    max_bit = 0;
+    do
     {
-        int loop_count = 0;
-        init_buck(tmp_buck);         //初始化临时桶
-        for (int i = 0; i < 10; i++) //循环10个桶
+        max_bit++;
+        tmp /= 10;
+    } while (tmp > 0); //取出最大位数
+    for (now_bit = 1; now_bit <= max_bit; now_bit++)
+    {
+        memset(buck_sub, 0, sizeof(buck_sub));
+        // memset(buck, 0, sizeof(int) * len);
+        for (int i = 0; i < len; i++) //获取每个桶中有多少个数字
         {
-            prt_node tmp_node = buck[i];
-            loop_count = 0;
-            while ((tmp_node = tmp_node->next) != NULL) //读取这个桶的数据
-            {
-                int bit = getN(tmp_node->data, n);         //读取第N位
-                insert(-1, tmp_node->data, tmp_buck[bit]); //放入临时桶
-                loop_count += 1;                           //自增计数
-                if (loop_count >= len)
-                {
-                    break;
-                }
-            }
-            if (loop_count >= len)
-            {
-                break;
-            }
+            buck_sub[getN(number[i], now_bit)] += 1;
         }
-        if (loop_count >= len)
+        for (int i = 1; i < 10; i++) //将数量转换为数组下标
         {
-            break;
+            buck_sub[i] = buck_sub[i] + buck_sub[i - 1];
         }
-        //转移到原桶,直接交换两个变量的内存地址
-        free_buck(buck);
-        memcpy(buck, tmp_buck, sizeof(buck));
-        n += 1; //下一位
+        for (int i = len - 1; i >= 0; i--) //将数组分配到桶中
+        {
+            int bit = getN(number[i], now_bit);
+            buck[--buck_sub[bit]] = number[i];
+        }
+        //将桶中的数据交换过去,直接拷贝内存
+        memcpy(number, buck, sizeof(int) * len);
     }
-    print_list(buck[0]);
-    free_buck(buck);
+    free(buck);
 }
 
 #ifndef MAIN_FUNC
 int main()
 {
-    int number[] = {10, 56, 156, 615, 165, 1563, 15641, 5632, 1564, 165352, 165465, 1, 4894, 32, 894, 2354, 819, 15468, 1654, 89};
-    radix_sort(number, 20);
+    int number[] = {1000, 999, 103};
+    radix_sort_lds(number, sizeof(number) / 4);
+    for (int i = 0; i < sizeof(number) / 4; i++)
+    {
+        printf("%d\t", number[i]);
+    }
     getchar();
     return 0;
 }
