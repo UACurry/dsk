@@ -5,9 +5,9 @@
 /**
  * 基数排序
  */
-#define MAX_RAND_NUMBER 10
 #define getN(number, N) (number / (int)pow(10, N - 1)) % 10
 #define NODE_SIZE sizeof(struct node)
+void radix_sort(int *, int);
 /**
  * 初始化桶
  */
@@ -40,14 +40,14 @@ void free_buck(prt_node *buck)
     }
 }
 
-int main()
+void radix_sort(int *number, int len)
 {
-    int number[MAX_RAND_NUMBER] = {110, 30, 5, 46, 8, 456, 231, 5648, 99797, 156}; //随机数列表
+    // int number[len] = {110, 30, 5, 46, 8, 456, 231, 5648, 99797, 156}; //随机数列表
     prt_node buck[10] = {NULL};
     init_buck(buck); //初始化桶
     prt_node tmp_buck[10] = {NULL};
     //先按照第一位入桶
-    for (int i = 0; i < MAX_RAND_NUMBER; i++)
+    for (int i = 0; i < len; i++)
     {
         int bit = getN(number[i], 1);     //取出个位
         insert(-1, number[i], buck[bit]); //放到第bit个桶
@@ -66,17 +66,17 @@ int main()
                 int bit = getN(tmp_node->data, n);         //读取第N位
                 insert(-1, tmp_node->data, tmp_buck[bit]); //放入临时桶
                 loop_count += 1;                           //自增计数
-                if (loop_count >= MAX_RAND_NUMBER)
+                if (loop_count >= len)
                 {
                     break;
                 }
             }
-            if (loop_count >= MAX_RAND_NUMBER)
+            if (loop_count >= len)
             {
                 break;
             }
         }
-        if (loop_count >= MAX_RAND_NUMBER)
+        if (loop_count >= len)
         {
             break;
         }
@@ -87,6 +87,14 @@ int main()
     }
     print_list(buck[0]);
     free_buck(buck);
+}
+
+#ifndef MAIN_FUNC
+int main()
+{
+    int number[] = {10, 56, 156, 615, 165, 1563, 15641, 5632, 1564, 165352, 165465, 1, 4894, 32, 894, 2354, 819, 15468, 1654, 89};
+    radix_sort(number, 20);
     getchar();
     return 0;
 }
+#endif

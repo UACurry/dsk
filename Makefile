@@ -1,6 +1,6 @@
 export DEBUG
 
-g=gcc -Wall
+g=gcc -Wall -fexec-charset=GBK
 ifeq ($(DEBUG), TRUE) 
 	g+= -g
 endif
