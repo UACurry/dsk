@@ -61,6 +61,7 @@ void print_stack(prt_stack *h)
         printf("%d\t", data);
     }
 }
+#ifndef MAIN_FUNC
 int main()
 {
     prt_stack stack = create_stack(1);
@@ -79,3 +80,4 @@ int main()
     print_stack(&stack);
     return 0;
 }
+#endif
