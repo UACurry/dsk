@@ -16,8 +16,7 @@ calculator 后缀表达式
 
 ## struct 数据结构
 ```
-stack 栈
-u_link_list 单向链表
+adt 抽象数据类型
 ```
 
 # 其他目录
@@ -28,3 +27,4 @@ sort 排序效率
 ```
 
 ## debug 调试文件的存放目录
+

@@ -25,7 +25,9 @@ int pop(prt_stack *h)
         return 0;
     }
     int ret_data = (*h)->data;
+    prt_stack *tmp = h;
     *h = (*h)->last;
+    free(tmp);
     return ret_data;
 }
 //1   header=1   header->last=null
@@ -78,6 +80,7 @@ int main()
     push(85, &stack);
     pop(&stack);
     print_stack(&stack);
+    getchar();
     return 0;
 }
 #endif
