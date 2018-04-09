@@ -10,7 +10,7 @@ typedef struct tree *prt_tree;
 #define false 0
 #define true 1
 #ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
 struct tree
@@ -49,8 +49,8 @@ prt_tree rightSingleRotation(prt_tree root)
     root->rt = tmp->lt;      //root->rt=tmp->lt    吧2的右节点接到1的左节点
     tmp->lt = root;          //1的左节点为2节点
     // tmp->lt=
-    root->height = (height(root->lt) > height(root->rt) ? height(root->lt) : height(root->rt))+ 1;
-    tmp->height = (height(tmp->lt) > height(tmp->rt) ? height(tmp->lt) : height(tmp->rt))+ 1;
+    root->height = (height(root->lt) > height(root->rt) ? height(root->lt) : height(root->rt)) + 1;
+    tmp->height = (height(tmp->lt) > height(tmp->rt) ? height(tmp->lt) : height(tmp->rt)) + 1;
     return tmp;
 }
 /**
@@ -96,7 +96,7 @@ prt_tree insert(int data, prt_tree root)
     else if (root->data > data) //    判断往哪个方向节点插入,数据比当前小,往左
     {
         root->lt = insert(data, root->lt);
-        if (height(root->lt)-height(root->rt) == 2) //重新平衡
+        if (height(root->lt) - height(root->rt) == 2) //重新平衡
         {
             if (data < root->lt->data)
             {
@@ -111,7 +111,7 @@ prt_tree insert(int data, prt_tree root)
     else if (root->data < data) //数据比当前大,往右
     {
         root->rt = insert(data, root->rt);
-        if (height(root->rt)-height(root->lt) == 2) //重新平衡
+        if (height(root->rt) - height(root->lt) == 2) //重新平衡
         {
             if (data > root->rt->data)
             {
@@ -126,7 +126,7 @@ prt_tree insert(int data, prt_tree root)
     root->height = max(height(root->lt), height(root->rt)) + 1;
     return root;
 }
-void print_tree(prt_tree root)
+void print_tree(prt_tree root) //中序输出就是排序啦
 {
     if (root == NULL)
     {
@@ -138,15 +138,11 @@ void print_tree(prt_tree root)
 }
 int main()
 {
-    prt_tree root = insert(1, NULL);
-    root = insert(2, root);
-    root = insert(3, root);
-    root = insert(4, root);
-    root = insert(5, root);
-    root = insert(6, root);
-    root = insert(7, root);
-    root = insert(8, root);
-    root = insert(9, root);
+    prt_tree root = insert(201, NULL);
+    for (int i = 0; i < 20; i++)
+    {
+        root = insert(rand(), root);
+    }
     print_tree(root);
     getchar();
     return 0;

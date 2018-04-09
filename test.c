@@ -2,12 +2,12 @@
 /**
  * 调试Makefile
 */
-int main(){
+int main()
+{
     printf("Hello World!\n");
-    //pause
-    int c=123;
-    char a=getchar();
-    c++;
-    printf("%c",a);
+    int a = 1, b = 2, c = 3;
+    int d = (a > b) && (c++);
+    printf("%d\t%d\n", c, d);
+    getchar();
     return 0;
 }
