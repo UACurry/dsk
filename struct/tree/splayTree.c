@@ -63,8 +63,10 @@ prt_tree find_tree(prt_tree root, int val)
     {
         tmp = find_tree(root->rt, val);
     }
-    //root=a tmp=b
-    splay_tree(root, tmp);
+    if (tmp != NULL)
+    {
+        splay_tree(root, tmp);
+    }
     return root;
 }
 void l_rotate(prt_tree a, prt_tree b);
@@ -90,22 +92,22 @@ void l_rotate(prt_tree a, prt_tree b)
     int tmp = a->data;
     a->data = b->data; //交换ab数据
     b->data = tmp;
-    prt_tree tmpTree=b->rt;//处理节点
-    a->rt = b; //处理节点
+    prt_tree tmpNode = a->rt;
+    a->rt = b;
     a->lt = b->lt;
-    b->lt = tmpTree;
-    b->rt=NULL;
+    b->lt = b->rt;
+    b->rt = tmpNode;
 }
 void r_rotate(prt_tree a, prt_tree b)
 {
     int tmp = a->data;
-    a->data = b->data; //交换ab数据
-    b->data = tmp;
-    prt_tree tmpTree=b->lt;//处理节点
-    a->lt = b; 
+    a->data = b->data;
+    b->data = tmp; //交换ab数据
+    prt_tree tmpNode = a->lt;
+    a->lt = b;
     a->rt = b->rt;
-    b->rt = tmpTree;
-    b->lt=NULL;
+    b->rt = b->lt;
+    b->lt = tmpNode;
 }
 bool find(prt_tree root, int val)
 {
@@ -118,16 +120,31 @@ bool find(prt_tree root, int val)
     {
         return false;
     }
-    splay_tree(root, tmp);
     return true;
+}
+
+void print_tree(prt_tree root) //中序输出就是排序啦
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    print_tree(root->lt);
+    printf("%d\t", root->data);
+    print_tree(root->rt);
 }
 
 int main()
 {
-    prt_tree root = create_tree(10);
-    add_tree(9, root);
-    add_tree(8, root);
-    add_tree(7, root);
-    find(root, 8);
+    prt_tree root = create_tree(201);
+    for (int i = 0; i < 20; i++)
+    {
+        root = add_tree(rand(), root);
+    }
+    int s = 0;
+    scanf("%d", &s);
+    find(root, s);
+    print_tree(root);
+    system("pause");
     return 0;
 }
