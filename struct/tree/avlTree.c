@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <memory.h>
 /**
- * VAL树
+ * AVL树
  */
 struct tree;
 typedef struct tree *prt_tree;
