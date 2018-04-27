@@ -4,6 +4,8 @@
         "u_link_list.h": "c",
         "math.h": "c",
         "malloc.h": "c",
-        "string.h": "c"
-    }
+        "string.h": "c",
+        "stdlib.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
