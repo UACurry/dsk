@@ -6,7 +6,7 @@
         {
             "label": "debug",
             "type": "shell",
-            "command": "mingw32-make",
+            "command": "make",
             "args": [
                 "build",
                 "DEBUG=TRUE",
