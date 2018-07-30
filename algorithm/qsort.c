@@ -27,10 +27,10 @@ int *quick_sort(int *array, int len)
     {
         return array;
     }
-    if (len <= 20) //如果长度小于20，选用更优的插入排序
-    {
-        return insert_sort(array, len);
-    }
+    // if (len <= 20) //如果长度小于20，选用更优的插入排序
+    // {
+    //     return insert_sort(array, len);
+    // }
     int i = 0, j = len - 2, pos = len / 2 - 1, v;
     //对位置进行处理，最大的放在j位置上，最小的放在i位置上，中间的设置为v
     if (array[i] > array[pos])
@@ -40,9 +40,14 @@ int *quick_sort(int *array, int len)
     if (array[pos] > array[j])
         swap(array, pos, j);
     v = array[pos];
-    swap(array, len - 1, pos);
     print_r(array, len);
-    while (1) //i向右移动，遇到比v大的停止，j向左移动，遇到比v小的停止
+    if (len == 3)
+    {
+        swap(array, 1, 2);
+        return array;
+    }
+    swap(array, len - 1, pos); //与最后一个交换
+    while (1)                  //i向右移动，遇到比v大的停止，j向左移动，遇到比v小的停止
     {
         while (array[i] < v)
         {
@@ -58,9 +63,6 @@ int *quick_sort(int *array, int len)
         }
         swap(array, j, i);
         print_r(array, len);
-    }
-    {
-        i++;
     }
     //将最后的与i交换
     swap(array, len - 1, i);
