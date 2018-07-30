@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <math.h>
-#include "../struct/u_link_list.h"
+#include "../struct/adt/u_link_list.h"
 /**
  * 基数排序
  */
