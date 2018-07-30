@@ -4,8 +4,6 @@
 /**
  * 快速排序O(NlogN)和插入排序O(N^2)
  * 根据《数据结构和算法》学习
- * 采用三数中值分割法
- * i为第一个元素，j为倒数第二个元素，v为中间，然后交换
  */
 void swap(int *array, int pos, int pos2);
 int *insert_sort(int *array, int len)
@@ -21,53 +19,46 @@ int *insert_sort(int *array, int len)
     }
     return array;
 }
+/**
+ * 快速排序，递归，利用分治的方法
+ * 首先确定一个基数，比其小的移向左，大的移向右
+ * 然后递归调用
+ */
 int *quick_sort(int *array, int len)
 {
-    if (len <= 1) //小于等于1个长度，直接返回
+    if (len <= 20) //长度小于20的采用插入排序法
     {
-        return array;
+        return insert_sort(array, len);
     }
-    // if (len <= 20) //如果长度小于20，选用更优的插入排序
-    // {
-    //     return insert_sort(array, len);
-    // }
-    int i = 0, j = len - 2, pos = len / 2 - 1, v;
-    //对位置进行处理，最大的放在j位置上，最小的放在i位置上，中间的设置为v
-    if (array[i] > array[pos])
-        swap(array, i, pos);
-    if (array[i] > array[j])
-        swap(array, i, j);
-    if (array[pos] > array[j])
-        swap(array, pos, j);
-    v = array[pos];
-    print_r(array, len);
-    if (len == 3)
+    //先取 左 中 右 三个数字
+    int l = 0, m, r = len - 2, pos = r / 2; //-2是取倒数第二个
+    //将三个数字排序,左最小,右最大
+    if (array[l] > array[r])
+        swap(array, l, r);
+    if (array[l] > array[pos])
+        swap(array, l, pos);
+    if (array[pos] > array[r])
+        swap(array, pos, r);
+
+    swap(array, pos, len - 1); //交换中间的数字和最后一个
+
+    m = array[len - 1];
+    while (1)
     {
-        swap(array, 1, 2);
-        return array;
-    }
-    swap(array, len - 1, pos); //与最后一个交换
-    while (1)                  //i向右移动，遇到比v大的停止，j向左移动，遇到比v小的停止
-    {
-        while (array[i] < v)
-        {
-            i++;
-        }
-        while (array[j] > v)
-        {
-            j--;
-        }
-        if (i > j)
+        while (array[++l] < m)
+            ; //左边的一直向右移动，直到遇到大于m的
+        while (array[--r] > m)
+            ; //右边的一直向左移动，直到遇到小于m的
+        if (l >= r)
         {
             break;
         }
-        swap(array, j, i);
-        print_r(array, len);
+        swap(array, l, r);
     }
-    //将最后的与i交换
-    swap(array, len - 1, i);
-    quick_sort(array, i);           //递归左
-    quick_sort(&array[i], len - i); //递归右
+    //交换l和最后的
+    swap(array, l, len - 1);
+    quick_sort(array, l);
+    quick_sort(&array[l + 1], len - l - 1);
     return array;
 }
 
@@ -90,9 +81,9 @@ void print_r(int *a, int len)
 #ifndef MAIN_FUNC
 int main()
 {
-    int a[] = {8, 1, 4, 9, 6, 3, 5, 2, 7, 0};
+    int a[] = {8, 1, 4, 7, 7, 6, 2, 1, 1, 6, 68, 1, 5, 5, 4, 54, 89, 42, 7, 0};
     quick_sort(a, sizeof(a) / sizeof(int));
-    print_r(a, 10);
+    print_r(a, sizeof(a) / sizeof(int));
     getchar();
     return 0;
 }

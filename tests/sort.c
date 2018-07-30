@@ -4,11 +4,11 @@
 #define MAIN_FUNC
 #include "../algorithm/radix_sort.c"
 #include "../algorithm/bubble.c"
+#include "../algorithm/qsort.c"
 
 /**
  * 排序耗时
  */
-
 int big_rand()
 {
     return (((rand() << 8) & 0xFF00ul) | ((rand()) & 0x00FFul));
@@ -42,22 +42,37 @@ void print_int(int *n)
 
 int main()
 {
-    clock_t start_time = clock(), t = 0;
-    int len = 1000000;
+    
+    int len = 10000000;
     int *number = rand_generate(len);
     int *tmp = copy_int(number, len);
-    //基数排序
+    clock_t start_time = clock(), t = 0;
+    // 基数排序
     radix_sort_lds(tmp, len);
     t = clock();
     print_int(tmp);
-    printf("\n共%d个数字,基数排序执行消耗时间:%ldms\n", len, t - start_time);
+    printf("radix_sort_lds number:%d\ttime:%ldms\n", len, t - start_time);
+    //快速排序
+    tmp = copy_int(number, len);
+    start_time = clock();
+    quick_sort(tmp, len);
+    t = clock();
+    print_int(tmp);
+    printf("quick_sort\tnumber:%d\ttime:%ldms\n", len, t - start_time);
+    //插入排序
+    tmp = copy_int(number, len);
+    start_time = clock();
+    insert_sort(tmp, len);
+    t = clock();
+    print_int(tmp);
+    printf("insert_sort number:%d\ttime:%ldms\n", len, t - start_time);
     //冒泡排序
     tmp = copy_int(number, len);
     start_time = clock();
     bubble_sort(tmp, len);
     t = clock();
     print_int(tmp);
-    printf("\n共%d个数字,冒泡排序执行消耗时间:%ldms\n", len, t - start_time);
+    printf("bubble_sort number:%d\ttime:%ldms\n", len, t - start_time);
     getchar();
     return 0;
 }
