@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define bool int
+#define true 1
+#define false 0
+
 void print_r(int *a, int len)
 {
     for (int i = 0; i < len; i++)

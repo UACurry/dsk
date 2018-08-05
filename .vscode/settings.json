@@ -6,7 +6,8 @@
         "malloc.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "limits": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
