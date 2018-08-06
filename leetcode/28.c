@@ -38,6 +38,32 @@ int strStr(char *haystack, char *needle)
     }
     return -1;
 }
+/*
+int strStr(char* haystack, char* needle) {
+    int i=0, j=0, temp;
+    
+    if( *needle == 0 ) return 0;
+    if( strlen(haystack) < strlen(needle) ) return -1;
+    
+    while( haystack[i] != 0) {
+        while( haystack[i] != 0 && haystack[i] != needle[j] ) i++;
+        if( haystack[i] == 0 ) return -1;
+        i++; j++;
+        temp = i;
+        while( haystack[i] != 0 && needle[j] != 0 ) {
+            if( haystack[i] != needle[j] ) {
+                j = 0;
+                i = temp;
+                break;
+            }
+            i++; j++;
+        }
+       // printf("haystack = %d, sizeof(needle) = %d, haystackTmp = %d", haystack, strlen(needleTmp), haystackTmp);
+        if( needle[j] == 0 ) return (i - j);
+    }
+    return -1;
+}
+*/
 
 int main()
 {
