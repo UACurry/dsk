@@ -11,7 +11,7 @@ struct ListNode
 struct ListNode *reverseList(struct ListNode *head)
 {
     struct ListNode *node = head, *next, *prev = NULL, *tmp;
-    while (node != NULL)
+    while (node != NULL )
     {
         next = node->next;
         node->next = prev;
