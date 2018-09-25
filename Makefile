@@ -1,6 +1,6 @@
 export DEBUG
-
-g=gcc -fexec-charset=GBK
+# -fexec-charset=GBK
+g=gcc
 ifeq ($(DEBUG), TRUE) 
 	g+= -g
 endif
