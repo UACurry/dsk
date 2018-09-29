@@ -4,7 +4,7 @@ int main() {
     char n[100];
     memset(n,1,100);
     int light = 0, men = 0;
-    scanf("%d,%d", &light, &men);
+ scanf("%d,%d", &light, &men);
     for (int i = 1; i < men; i++) {
         int sub = i + 1;
         while (sub <= light) {
