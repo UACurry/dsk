@@ -26,7 +26,7 @@ char* decode(char* shortUrl) {
     int x = atoi(&s[1]);
     return hash[x];
 }
-
+//直接返回原字符leetcode也是可以通过
 // Your functions will be called as such:
 // char* s = encode(s);
 // decode(s);
