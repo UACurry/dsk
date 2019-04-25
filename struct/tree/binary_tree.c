@@ -44,6 +44,7 @@ int add_tree(tree* root) {
     return 0;
 }
 
+//前;中;后序遍历 dfs
 void print_tree_before(tree* root) {
     if (root == NULL) {
         return;
@@ -51,6 +52,27 @@ void print_tree_before(tree* root) {
     printf("%d\t", root->val);
     print_tree_before(root->left);
     print_tree_before(root->right);
+}
+
+void print_tree_stack(tree* root) {
+    //使用栈来实现前序(不是递归)
+    tree* stack[100] = {NULL};
+    int start = 0, end = 0;
+    stack[0] = root;
+    while (end >= 0) {
+        //弹出栈顶
+        int top = end--;
+        tree * tmp=stack[top];
+        printf("%d\t", tmp->val);
+        //右入
+        if (tmp->right != NULL) {
+            stack[++end] = tmp->right;
+        }
+        //左入
+        if (tmp->left != NULL) {
+            stack[++end] = tmp->left;
+        }
+    }
 }
 
 void print_tree_mid(tree* root) {
@@ -71,12 +93,33 @@ void print_tree_after(tree* root) {
     printf("%d\t", root->val);
 }
 
+//层次遍历 bfs
+void print_tree_cengci(tree* root) {
+    tree* queue[100] = {NULL};
+    int pos = 0;  //队首
+    int end = 0;  //队尾
+    queue[0] = root;
+    while (queue[pos] != NULL) {
+        if (queue[pos]->left != NULL) {
+            //入队
+            queue[++end] = queue[pos]->left;
+        }
+        if (queue[pos] != NULL) {
+            queue[++end] = queue[pos]->right;
+        }
+        //输出(出队)
+        printf("%d\t", queue[pos++]->val);
+    }
+}
+
 int main() {
     tree* root = new_tree();
     root->left = new_tree();
     root->right = new_tree();
-    root->left->left=new_tree();
-    root->left->left->val=4;
+    root->left->left = new_tree();
+    root->left->right = new_tree();
+    root->left->left->val = 4;
+    root->left->right->val = 5;
     root->val = 1;
     root->left->val = 2;
     root->right->val = 3;
@@ -86,6 +129,10 @@ int main() {
     print_tree_mid(root);
     printf("\n");
     print_tree_after(root);
+    printf("\n");
+    print_tree_cengci(root);
+    printf("\n");
+    print_tree_stack(root);
     printf("\n");
     system("pause");
     return 0;
