@@ -21,9 +21,7 @@ void dfs(char** ret, int* num, char* S, int pos) {
 
 char** letterCasePermutation(char* S, int* returnSize) {
     char** ret = malloc(pow(2, strlen(S)) * sizeof(char*));
-    int num = 0;
-    dfs(ret, &num, S, 0);
-    *returnSize = num;
+    dfs(ret, returnSize, S, 0);
     return ret;
 }
 
