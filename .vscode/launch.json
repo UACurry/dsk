@@ -5,13 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Go_Debug",
-            "type": "go",
-            "request": "launch",
-            "mode": "debug",
-            "program": "${file}"
-        },
-        {
             "name": "Debug_win_x86",
             "type": "cppdbg",
             "request": "launch",

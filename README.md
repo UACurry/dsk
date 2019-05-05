@@ -13,6 +13,9 @@
 * vscode
 * Ubuntu 18.04
 * gcc 7.3 make 4.1
+> 开始使用golang,c缺少太多基本的数据结构了
+* vscode
+* go 12
 
 # 使用
 已经配置好,直接用vscode打开,打开一个.c文件,按下f5就可以调试了(调试的是当前的文件)
