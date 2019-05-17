@@ -20,6 +20,7 @@
 # 使用
 已经配置好,直接用vscode打开,打开一个.c文件,按下f5就可以调试了(调试的是当前的文件)
 
+golang 使用vscode插件`run code`
 # 目录
 
 ## algorithm 排序算法
