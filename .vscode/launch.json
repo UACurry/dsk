@@ -35,10 +35,8 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,
             "MIMode": "gdb",
-            "targetArchitecture": "x86",
-            "miDebuggerPath": "gdb",
             "preLaunchTask": "debug",
             "setupCommands": [
                 {
