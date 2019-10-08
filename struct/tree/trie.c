@@ -104,6 +104,46 @@ void insert(trieNode tree, char *path, int data)
     }
 }
 
+trieNode search(trieNode tree, char *path)
+{
+    if (tree == NULL)
+    {
+        return NULL;
+    }
+    int pos1 = 0, pos2 = 0;
+    for (; pos2 < strlen(path); pos2++, pos1++)
+    {
+        if (tree->path[pos1] != path[pos2])
+        {
+            if (pos1 == 0) //为0则表示一个都不相等,往兄弟节点查询
+            {
+                pos1 = -1;
+                pos2 -= 1;
+                tree = tree->brother;
+            }
+            else
+            {
+                //否则没了
+                return NULL;
+            }
+        }
+        else if (pos1 == strlen(tree->path) - 1) //如果全部相等,node->path查找完毕,继续判断pos2是不是相等
+        {
+            if (pos2 == strlen(path) - 1) //传入的path也全部扫描完毕,则当前节点就是搜索到的节点
+            {
+                return tree;
+            }
+            else //否则,pos1重置为0,从下一个节点继续查找
+            {
+                pos1 = -1;
+                tree = tree->next;
+            }
+        }
+    }
+
+    return NULL;
+}
+
 int main()
 {
     tree = newNode();
@@ -112,4 +152,6 @@ int main()
     insert(tree, "/user/logout", 333);
     insert(tree, "/user/message", 444);
     insert(tree, "/user/mess", 555);
+
+    trieNode tmp = search(tree, "/user/mess");
 }
