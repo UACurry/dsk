@@ -43,7 +43,7 @@ void print_int(int *n)
 int main()
 {
     
-    int len = 1000;
+    int len = 10000;
     int *number = rand_generate(len);
     int *tmp = copy_int(number, len);
     clock_t start_time = clock(), t = 0;

@@ -10,6 +10,8 @@
 typedef struct trie *trieNode;
 typedef struct trie Trie;
 
+// 有bug的trie压缩树
+
 struct trie
 {
     char *path;       //节点路径
