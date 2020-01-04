@@ -97,15 +97,63 @@ func Test_selection(t *testing.T) {
 }
 
 func BenchmarkSelect100(b *testing.B) {
-	arr := randIntSlice(100)
+	arr := sortArr100
 	for i := 0; i < b.N; i++ {
 		selection(arr)
 	}
 }
 
 func BenchmarkSelect1000(b *testing.B) {
-	arr := randIntSlice(1000)
+	arr := sortArr1000
 	for i := 0; i < b.N; i++ {
 		selection(arr)
+	}
+}
+
+func Test_merge_sort(t *testing.T) {
+	arr := []int{5, 3, 4, 1, 2, 6}
+	ret := merge_sort(arr)
+	assert.Equal(t, []int{1, 2, 3, 4, 5, 6}, ret)
+	arr = randIntSlice(10)
+	ret = bubble_1(arr)
+	ret2 := merge_sort(arr)
+	assert.Equal(t, ret, ret2)
+}
+
+func BenchmarkMerge100(b *testing.B) {
+	arr := sortArr100
+	for i := 0; i < b.N; i++ {
+		merge_sort(arr)
+	}
+}
+
+func BenchmarkMerge1000(b *testing.B) {
+	arr := sortArr1000
+	for i := 0; i < b.N; i++ {
+		merge_sort(arr)
+	}
+}
+
+func Test_qsort(t *testing.T) {
+	arr := []int{5, 3, 4, 1, 2, 6}
+	ret := qsort(arr)
+	assert.Equal(t, []int{1, 2, 3, 4, 5, 6}, ret)
+	arr = randIntSlice(10)
+	ret = bubble_1(arr)
+	ret2 := qsort(arr)
+	assert.Equal(t, ret, ret2)
+}
+
+func BenchmarkQuickSort100(b *testing.B) {
+	arr := sortArr100
+	for i := 0; i < b.N; i++ {
+		qsort(arr)
+	}
+}
+
+func BenchmarkQuickSort1000(b *testing.B) {
+	arr := sortArr1000
+	for i := 0; i < b.N; i++ {
+		qsort(arr)
 	}
 }
